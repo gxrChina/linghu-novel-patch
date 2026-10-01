@@ -24,7 +24,7 @@
 - 图标别名、S Pen 遥控这些没用的也清了
 
 数据:
-- 内置的 703 个书源也提取了一份,在 rules/booksource-builtin-703.json
+- 内置的 703 个书源也提取了一份,在 rules/builtin-book-sources.json
   (首次启动会自动导入,不用手动操作;重装后从这里再导一次也行)
 
 ## 没有 apk
