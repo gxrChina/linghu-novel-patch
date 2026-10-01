@@ -23,14 +23,12 @@
 - 开屏页跟着系统深色模式走
 - 图标别名、S Pen 遥控这些没用的也清了
 
-数据:
-- 内置的 703 个书源也提取了一份,在 rules/builtin-book-sources.json
-  (首次启动会自动导入,不用手动操作;重装后从这里再导一次也行)
+## 下载
 
-## 没有 apk
+apk 在 [Releases](https://github.com/gxrChina/linghu-novel-patch/releases/tag/v8.7) 里,
+下载后直接覆盖安装(数据保留)。想自己动手打的看下面的构建部分。
 
-改的是别人商业包的脱壳产物,放出来容易惹事。
-patches/ 按 apktool 解包路径摆好,自己打包:解包 → 覆盖 → 回编 → 签名,参考 rebuild.sh。
+补丁的来源说明:改的是别人商业包的脱壳产物,自用没问题,别拿去二次分发。
 
 ## 两句提醒
 
@@ -41,4 +39,4 @@ patches/ 按 apktool 解包路径摆好,自己打包:解包 → 覆盖 → 回�
 
 ---
 
-English: personal patches for 灵狐小说, a rebranded legado build. De-ad, dark-mode white-screen fix, rank list repaired, 125MB → 62.8MB. No apk here — patches and a build script only, GPL-3.0. The Chinese part above covers everything (run it through a translator if needed).
+English: personal patches for 灵狐小说, a rebranded legado build. De-ad, dark-mode white-screen fix, rank list repaired, 125MB → 62.8MB. The patched apk is attached to the [v8.7 release](https://github.com/gxrChina/linghu-novel-patch/releases/tag/v8.7) — install it right over the stock one, data stays. Patches and build script only, GPL-3.0. The Chinese part above covers everything (run it through a translator if needed).
