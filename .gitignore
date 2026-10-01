@@ -20,5 +20,5 @@ out_sources/
 功能清单.md
 
 # 备份与恢复数据
-bookSource*.json
+/bookSource*.json
 crash*.log
