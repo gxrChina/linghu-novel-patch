@@ -1,0 +1,44 @@
+[
+ {
+  "name": "错字修正示例:伱→你",
+  "group": "示例-错字修正",
+  "pattern": "伱",
+  "replacement": "你",
+  "isRegex": false,
+  "scope": "",
+  "scopeTitle": false,
+  "scopeContent": true,
+  "excludeScope": "",
+  "enabled": true,
+  "sort": 0,
+  "timeoutMillisecond": 0
+ },
+ {
+  "name": "示例:删除含【广告】的整行(正则,默认关闭)",
+  "group": "示例-广告删除",
+  "pattern": "^.*【广告】.*$",
+  "replacement": "",
+  "isRegex": true,
+  "scope": "",
+  "scopeTitle": false,
+  "scopeContent": true,
+  "excludeScope": "",
+  "enabled": false,
+  "sort": 1,
+  "timeoutMillisecond": 0
+ },
+ {
+  "name": "示例:删除常见推广段(正则,默认关闭)",
+  "group": "示例-广告删除",
+  "pattern": "本站最新网址.*|请记住本站.*",
+  "replacement": "",
+  "isRegex": true,
+  "scope": "",
+  "scopeTitle": false,
+  "scopeContent": true,
+  "excludeScope": "",
+  "enabled": false,
+  "sort": 2,
+  "timeoutMillisecond": 0
+ }
+]

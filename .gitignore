@@ -1,0 +1,24 @@
+# 构建产物与本地环境,不要提交
+.mimosa/
+PATCH_NOTES.md
+*.apk
+*.idsig
+*.jks
+*.keystore
+base_original*.apk
+backup/
+release/
+out/
+apktool_out/
+v5_tree/
+tools/
+verify_out/
+dist/
+
+# 反编译全树与个人笔记(体积大且含第三方专有代码)
+out_sources/
+功能清单.md
+
+# 备份与恢复数据
+bookSource*.json
+crash*.log

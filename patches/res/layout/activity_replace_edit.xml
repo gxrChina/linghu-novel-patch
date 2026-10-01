@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/root_view" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <io.legado.app.ui.widget.TitleBar android:id="@id/title_bar" android:layout_width="fill_parent" android:layout_height="wrap_content" app:contentInsetStartWithNavigation="0.0dip" app:displayHomeAsUp="true" app:fitStatusBar="false" app:title="@string/replace_rule_edit" />
+    <androidx.core.widget.NestedScrollView android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <LinearLayout android:orientation="vertical" android:id="@id/ll_content" android:padding="10.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/nf_replace_guide" android:textColor="@color/primaryText" android:textSize="12.0sp" android:lineSpacingExtra="3.0dip" android:paddingBottom="8.0dip" />
+            <io.legado.app.ui.widget.text.TextInputLayout android:id="@id/til_name" android:layout_width="fill_parent" android:layout_height="wrap_content" android:hint="@string/nf_replace_name">
+                <io.legado.app.lib.theme.view.ThemeEditText android:id="@id/et_name" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+            </io.legado.app.ui.widget.text.TextInputLayout>
+            <io.legado.app.ui.widget.text.TextInputLayout android:id="@id/til_group" android:layout_width="fill_parent" android:layout_height="wrap_content" android:hint="@string/nf_replace_group">
+                <io.legado.app.lib.theme.view.ThemeEditText android:id="@id/et_group" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+            </io.legado.app.ui.widget.text.TextInputLayout>
+            <io.legado.app.ui.widget.text.TextInputLayout android:id="@id/til_replace_rule" android:layout_width="fill_parent" android:layout_height="wrap_content" android:hint="@string/nf_replace_pattern">
+                <io.legado.app.lib.theme.view.ThemeEditText android:id="@id/et_replace_rule" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+            </io.legado.app.ui.widget.text.TextInputLayout>
+            <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <io.legado.app.lib.theme.view.ThemeCheckBox android:id="@id/cb_use_regex" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="@string/nf_use_regex" android:layout_weight="1.0" />
+                <ImageView android:id="@id/iv_help" android:layout_width="24.0dip" android:layout_height="24.0dip" android:src="@drawable/ic_help" android:contentDescription="@string/help" app:tint="@color/primaryText" />
+            </LinearLayout>
+            <io.legado.app.ui.widget.text.TextInputLayout android:id="@id/til_replace_to" android:layout_width="fill_parent" android:layout_height="wrap_content" android:hint="@string/nf_replace_to">
+                <io.legado.app.lib.theme.view.ThemeEditText android:id="@id/et_replace_to" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+            </io.legado.app.ui.widget.text.TextInputLayout>
+            <androidx.appcompat.widget.LinearLayoutCompat android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <io.legado.app.lib.theme.view.ThemeCheckBox android:id="@id/cb_scope_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:checked="false" android:text="@string/scope_title" />
+                <io.legado.app.lib.theme.view.ThemeCheckBox android:id="@id/cb_scope_content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dip" android:checked="true" android:text="@string/scope_content" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <io.legado.app.ui.widget.text.TextInputLayout android:id="@id/til_scope" android:layout_width="fill_parent" android:layout_height="wrap_content" android:hint="@string/nf_replace_scope">
+                <io.legado.app.lib.theme.view.ThemeEditText android:id="@id/et_scope" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+            </io.legado.app.ui.widget.text.TextInputLayout>
+            <io.legado.app.ui.widget.text.TextInputLayout android:id="@id/til_exclude_scope" android:layout_width="fill_parent" android:layout_height="wrap_content" android:hint="@string/nf_replace_exclude">
+                <io.legado.app.lib.theme.view.ThemeEditText android:id="@id/et_exclude_scope" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+            </io.legado.app.ui.widget.text.TextInputLayout>
+            <io.legado.app.ui.widget.text.TextInputLayout android:id="@id/til_timeout" android:layout_width="fill_parent" android:layout_height="wrap_content" android:hint="@string/nf_replace_timeout">
+                <io.legado.app.lib.theme.view.ThemeEditText android:id="@id/et_timeout" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="number" />
+            </io.legado.app.ui.widget.text.TextInputLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

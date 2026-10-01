@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <io.legado.app.ui.widget.TitleBar android:id="@id/title_bar" android:layout_width="fill_parent" android:layout_height="wrap_content" app:contentInsetStartWithNavigation="0.0dip" app:contentLayout="@layout/view_search" app:title="@string/replace_purify" />
+    <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/nf_guide_replace" android:textColor="@color/primaryText" android:textSize="12.0sp" android:lineSpacingExtra="3.0dip" android:padding="10.0dip" />
+    <FrameLayout android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="1.0">
+        <io.legado.app.ui.widget.recycler.scroller.FastScrollRecyclerView android:id="@id/recycler_view" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    </FrameLayout>
+    <io.legado.app.ui.widget.SelectActionBar android:id="@id/select_action_bar" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+</LinearLayout>
