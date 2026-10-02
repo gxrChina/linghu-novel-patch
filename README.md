@@ -27,7 +27,7 @@
 
 ## 下载
 
-apk 在 [Releases](https://github.com/gxrChina/linghu-novel-patch/releases/tag/v9.0) 里,
+apk 在 [Releases](https://github.com/gxrChina/linghu-novel-patch/releases/tag/v9.1) 里,
 下载后直接覆盖安装(数据保留)。想自己动手打的看下面的构建部分。
 
 补丁的来源说明:改的是别人商业包的脱壳产物,自用没问题,别拿去二次分发。
@@ -41,4 +41,4 @@ apk 在 [Releases](https://github.com/gxrChina/linghu-novel-patch/releases/tag/v
 
 ---
 
-English: personal patches for 灵狐小说, a rebranded legado build. De-ad, dark-mode white-screen fix, rank list repaired and turned into category tabs (13 male / 6 female genres), 125MB → 62.8MB. The patched apk is attached to the [v8.7 release](https://github.com/gxrChina/linghu-novel-patch/releases/tag/v9.0) — install it right over the stock one, data stays. Patches and build script only, GPL-3.0. The Chinese part above covers everything (run it through a translator if needed).
+English: personal patches for 灵狐小说, a rebranded legado build. De-ad, dark-mode white-screen fix, rank list repaired and turned into category tabs (13 male / 6 female genres), 125MB → 62.8MB. The patched apk is attached to the [v8.7 release](https://github.com/gxrChina/linghu-novel-patch/releases/tag/v9.1) — install it right over the stock one, data stays. Patches and build script only, GPL-3.0. The Chinese part above covers everything (run it through a translator if needed).
