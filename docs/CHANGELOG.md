@@ -472,3 +472,18 @@ InstallRunnable/ToastRunnable)。versionCode 100000018。
 实测(MuMu Android 15):弹窗文案/按钮/×、下载(62.6MB 秒级)、FileProvider
 唤起系统安装器、跳浏览器,全链路通过;发布 v9.2 后重进 app 不再弹窗。
 产物:release/linghu_nightfix_v9.2.apk(versionCode 100000018,最终版)
+
+### v9.2 补充:更新开关(2026-10-03,资产原地替换)
+其它设置页新增「检查更新」开关(key `updateCheckEnabled`,默认开,
+pref_config_other.xml 的 SwitchPreference,与检查器同读
+PreferenceManager.getDefaultSharedPreferences,零胶水):
+- 关闭 → AppUpdateChecker.check() 入口直接 return,后台检查线程都不起,
+  更新弹窗从此不再出现;随时可回设置打开;
+- 指南升 v3(第八章补了开关的路径说明),guideBookV 标志 v2→v3;
+- 实测:开→弹 / 关→不弹(用 CURRENT_TAG=v9.1 的测试包制造版本差验证
+  门禁,再切回 v9.2 出正式包)/ 默认(从未进过设置页)→弹。
+  这里修了个 bug:最初门禁用 getPrefBoolean$default(mask 掩码取默认值),
+  该方法默认参是 false,用户没进过设置页时会被误判为关——改为三参显式
+  传 true。
+v9.2 Release 资产原地替换,release 正文补了开关说明,versionCode 仍
+100000018,老 v9.2 安装直接覆盖即可。
