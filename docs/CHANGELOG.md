@@ -393,3 +393,32 @@ XUpdate 库(更新框架,检查入口已死)、WelcomeActivity 主题相关。
 实测:热搜榜显示真实书单(封面/评分/状态/标签),零崩溃。
 注意:榜单数据仍依赖夸克第三方接口的存续。
 产物:release/linghu_nightfix_v8.7.apk(versionCode 100000013,最终版)
+
+### v8.8:排行榜 Tab 改造为分类 Tab(2026-10-01,用户选方案 3)
+接口已废弃按榜单区分的数据(rank 参数失效),按用户选择把 5 个重复的榜单 Tab
+改造为**分类 Tab**:
+1. TabFragmentPageAdapter 重写:getCategories() 按性别返回分类数组
+   (男频 13 类:玄幻/武侠/仙侠/奇幻/科幻/都市/历史/军事/游戏/体育/灵异悬疑/
+   轻小说/同人;女频 6 类:现言/古言/幻言/纯爱/同人/校园),
+   getCount/getItem/getPageTitle 全部基于该数组;
+2. RankBookListFragment.getBooksByCats:URL 改为
+   `cate=` + URLEncoder.encode(分类名) + `&rank=rank_hot`
+   (分类名中文,需 URL 编码;rank 参数接口已忽略,固定传 rank_hot);
+3. 男生/女生顶部分别出各自的分类 Tab,每个分类返回真实书单。
+
+实测(MuMu Android 15):男频玄幻/科幻书单正常且互不相同、女频现言分类正常、
+零崩溃。产物:release/linghu_nightfix_v8.8.apk(versionCode 100000014,最终版)
+
+### v9.0:分类 Tab 手机端挤压修复(2026-10-01)
+用户真机反馈:手机尺寸下 13 个分类 Tab 挤成一条细缝、文字裁切不可读。
+根因(反汇编成品包 + 读打包的 Material 库源码确认):**这套 app 打包的
+Material 库里 TabLayout 的模式常量与惯例相反——MODE_SCROLLABLE=0、
+MODE_FIXED=1**。换皮作者(与上游 legado)写的 setTabMode(1) 本意是滚动模式,
+在这套库里实际 = FIXED → 13 个 Tab 被强塞满屏宽。
+修复:setTabMode(1) → setTabMode(0)(此库的滚动模式),配合 gravity CENTER:
+Tab 按内容宽度排列,超出部分左右滑动查看(实测截图:手机竖屏下 5 个分类
+清晰可读,其余滑动可达)。
+附带修复:Tab 条嵌在性别 ViewPager 内,横滑手势会被父级拦截——新增
+TabStripTouchKeeper(OnTouchListener)在触摸时请求父级不拦截,
+Tab 条自身可左右滑动。
+产物:release/linghu_nightfix_v9.0.apk(versionCode 100000016,最终版)
