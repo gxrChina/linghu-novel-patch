@@ -422,3 +422,16 @@ Tab 按内容宽度排列,超出部分左右滑动查看(实测截图:手机竖�
 TabStripTouchKeeper(OnTouchListener)在触摸时请求父级不拦截,
 Tab 条自身可左右滑动。
 产物:release/linghu_nightfix_v9.0.apk(versionCode 100000016,最终版)
+
+### v9.1(资产原地替换):书架内置《灵狐使用指南》(2026-10-02)
+在软件里直接放一篇功能说明,让第一次用的人不用到处问:
+- 新增 GuideBookHelp:首次启动把 `assets/guide/linghu_guide.txt` 拷入
+  `filesDir/localBook/`,按 `origin=loc_book`、`type=text|local` 构造 Book
+  插入 books 表;挂在 `MainActivity.loadBookSource()` 开头,偏好键
+  `guideBookV` 保证只导一次(删了不会复活,导入失败下次启动重试);
+- 文档内容为人工写就的功能说明(书架/找书/阅读页/替换净化/书源/备份/
+  改动清单),章节标题按"第X章"书写,匹配默认 TXT 分章规则出目录;
+- 实测(MuMu Android 15):全新安装首启即出现在书架,9 章目录正确,
+  正文与夜间模式正常,二次启动不重复导入;
+- v9.1 Release 的 APK 资产原地替换(文件名不变,versionCode 仍
+  100000017):老用户覆盖安装后,下次启动也会补上这本指南。
