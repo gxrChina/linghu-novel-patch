@@ -435,3 +435,40 @@ Tab 条自身可左右滑动。
   正文与夜间模式正常,二次启动不重复导入;
 - v9.1 Release 的 APK 资产原地替换(文件名不变,versionCode 仍
   100000017):老用户覆盖安装后,下次启动也会补上这本指南。
+
+### v9.2:应用内更新弹窗 + 指南 v2(2026-10-03)
+连到本仓库的 GitHub Releases,进 app 后台查一次最新版(书源加载入口处,旧
+厂商 XUpdate 链路废弃:原 vendor update URL 分支改为无条件跳过):
+- 有新版本(tag 与内置 CURRENT_TAG 不一致)→ 延迟 2 秒弹窗:标题"发现新版本
+  vX.Y" + 右上角 ×,正文为 release 说明,底部三个按钮:更新 / 手动更新 / 跳过;
+- 更新 = 自建 HTTP 线程下载 assets 里第一个 .apk(手动跟随重定向,每跳一次
+  都过 host 白名单),存 external-files/Download,经 androidx FileProvider 转
+  content:// 后 ACTION_VIEW 唤起系统安装器;
+- 手动更新 = 跳浏览器 releases/latest;跳过 / × = 关闭弹窗;
+- host 白名单:仅 api.github.com / github.com / objects.githubusercontent.com /
+  release-assets.githubusercontent.com,scheme 限 http/https,其余一律拒绝
+  (localhost/环回/私有/保留地址自然全挡在外面);
+- 网络失败静默跳过(daemon 线程,不吵用户)。
+
+指南同步升到 v2(内容加了"编辑内容"功能介绍——阅读菜单顶栏 ⋮ → 编辑内容,
+改当前章正文;以及更新弹窗说明):GuideBookHelp 的 guideBookV 标志 v1→v2,
+老用户升级后文件覆盖、章节缓存清空、目录重建,书不重复出现。
+
+新增类:io.legado.app.help.update.AppUpdateChecker 及 7 个配套
+(CheckRunnable/ShowDialog/CloseClick/OnUpdate/OnManual/DownloadRunnable/
+InstallRunnable/ToastRunnable)。versionCode 100000018。
+
+调试踩坑(都修掉了):
+1) AlertDialog 按钮监听器必须 DialogInterface.OnClickListener,
+   用 View.OnClickListener 软校验不报错、点击时才 ClassCastException;
+2) DownloadManager.Query.setFilterById 是 long... 变长参(smali 签名 [J),
+   传标量 J 每次 NoSuchMethodError 被吞;且 MuMu 上 DM 反复卡 PAUSED,
+   弃用,换自建 HTTP 线程;
+3) Toast.makeText 没有两参 (Context, CharSequence) 重载;
+4) smali 寄存器列表不能内联字符串字面量;isAllowed 判空写反导致永远 false;
+5) apktool 并行 smali 偶发把整个 classes8.dex 写成 0 类且不报错(或报
+   "Error while writing instruction at 0x31")—— 构建后必须校验各 dex 的
+   class_defs 数量(verify_build.py 对着 v9.1 基线数),坏就重跑。
+实测(MuMu Android 15):弹窗文案/按钮/×、下载(62.6MB 秒级)、FileProvider
+唤起系统安装器、跳浏览器,全链路通过;发布 v9.2 后重进 app 不再弹窗。
+产物:release/linghu_nightfix_v9.2.apk(versionCode 100000018,最终版)
