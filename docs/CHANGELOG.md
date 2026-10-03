@@ -546,3 +546,12 @@ CURRENT_TAG 仍 v9.3。
 清应用数据,厂商隐私弹窗(首启"用户隐私与协议")反复弹出干扰截图;api.github.com
 未认证配额 60 次/小时,调试打满后更新弹窗会静默不弹(属预期降级)。功能链路
 (点击→下载→关弹窗→安装器)多次全通。
+
+补一个关键修复:AlertDialog 按钮点击后框架会**自动 dismiss**——第一版把进度
+切换写在 DialogInterface.OnClickListener 里,onClick 一返回弹窗就被框架收掉,
+进度条根本看不见(下载/安装链路本身是通的,跑了五次才定位到)。改成
+setPositiveButton 传 null,show() 之后 getButton(-1).setOnClickListener 挂
+View.OnClickListener,框架才不收。另注意 getButton 必须在 show() **之后**调:
+之前调返回 null,后续 NPE 会被 ShowDialog 的 catch 吞掉,弹窗整个不出现。
+两个坑都在模拟器上实测:断网点「更新」,弹窗停留在进度模式并显示
+「下载失败,可以用『手动更新』去 GitHub 下载」,更新按钮置灰。
