@@ -487,3 +487,49 @@ PreferenceManager.getDefaultSharedPreferences,零胶水):
   传 true。
 v9.2 Release 资产原地替换,release 正文补了开关说明,versionCode 仍
 100000018,老 v9.2 安装直接覆盖即可。
+
+### v9.3:黑夜模式排行榜修复 + 离线缓存 + 广告残留清理(2026-10-04)
+用户报了 bug:黑夜模式排行榜书名全部消失。根因在原包:排行条目布局
+item_rank_book_list.xml 把书名颜色写死 `#ff232323`(厂商没做夜间适配),
+评分行写死 `#ff9e9e9e` 恰好两种模式都能看,于是只有书名隐身。改成
+`@color/primaryText`(values-night 已有白色定义),一行修复,浅色无回归。
+
+排行榜离线兜底(新类 RankCacheHelp):
+- saveCache:首屏(第 1 页)响应原文存 filesDir/rankcache/<hash>.json,
+  时间戳存 .ts,key = rank|gender,全程 try/catch 不抛;
+- loadAndParse:读缓存后复用线上的 AnalyzeRule JSONPath 规则解析,
+  失败返回 null,不碰线上流程;顺带算出数据年龄;
+- lastAgeText:三档文案(无时间戳/X 分钟前/X 小时前);
+- loadData$1 的 catch 分支:nPage==1 时 loadAndParse → addItems →
+  toast 提示年龄;没有缓存才回落到原来的"没有更多了。"。
+
+广告残留清理:
+- assets 删 bdxadsdk.jar(1.4M)、gdt_plugin/gdtadv2.jar(2.2M)、
+  qumeng(908K)、jad_*.json、ksad_*、libinno、na.czl、openmeasure、
+  sig_appelements.html、supplierconfig.json、AISDK_ASSET.txt;
+- manifest 删 200+ 行广告组件声明(广点通/百度/美数/倍孜/优量汇/
+  穿山甲 FileProvider、aweme 包名查询、UMENG_CHANNEL meta)和三个
+  只有广告 SDK 用的权限:ACCESS_FINE_LOCATION、ACCESS_COARSE_LOCATION、
+  READ_PHONE_STATE。包体 62.6MB → 58.0MB。
+- privacyPolicy.md 重写:原稿自称"采用 Google Firebase 收集崩溃报告"
+  等不实内容,改为如实描述(无服务端、无统计/广告 SDK、不收集信息)。
+  该文件是首启弹窗与"关于"页共用的文本源。
+
+调试踩坑:
+1) Mimosa 会话状态(.mimosa/hook-state)被写进 v5_tree/assets 后,
+   apktool 打包原样带进 APK——发布前必须 unzip -l 查一遍,清掉重打;
+2) MuMu 开飞行模式会把虚拟网卡连同 adb 桥一起杀掉(adb 卡 offline);
+   用 MuMuManager 的 RPC shell(sh -v N,root)执行
+   `cmd connectivity airplane-mode disable` 可恢复;
+3) 无 root 的模拟器上 `pm revoke INTERNET` 不可用(安装期权限不可撤),
+   断网测试只能走飞行模式 + RPC 驱动;
+4) RPC shell 里 input tap 偶发被吞(首点丢失率高),双击即可;
+5) 重启模拟器后 adb 端口可能变(info -v N 查 adb_port,这次 7555 →
+   16416 → 16448),Git Bash 还要配 MSYS_NO_PATHCONV 才能 pull。
+
+实测(全新 MuMu Android 15 实例,versionCode 100000019):
+黑夜/浅色排行榜书名都清晰;断网进排行榜渲染缓存列表;断网启动无弹窗
+(检查失败静默跳过);在线弹窗文案取自 GitHub release body、跳过可关;
+指南书全新安装自动上架。DEX 类计数过 verify_build 门禁(classes8
+8378+RankCacheHelp=8379),证书与历史一致。
+产物:release/linghu_nightfix_v9.3.apk(58,048,782 字节)

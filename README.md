@@ -26,11 +26,15 @@
 - 书架里内置了一篇《灵狐使用指南》,第一次启动自动出现,删了不会回来
 - 有新版本进 app 会弹窗提醒,可以直接下载安装,也可以跳浏览器去 GitHub
 - 不想被打扰?我的 → 其它设置 → 检查更新,关了就再也不弹
+- 黑夜模式排行榜书名看不见?v9.3 修了(原包把书名颜色写死成深色)
+- 排行榜接口挂了或断网时,显示最近一次成功的数据,并注明缓存是什么时候的
+- 广告 SDK 的残留文件清掉了,安装包 62.6MB → 58MB,顺带删了用不到的定位、读取手机状态权限
+- "关于"里的隐私说明更正:原稿还自称用 Google Firebase 收集数据,实际一个统计 SDK 都没有
 - 图标别名、S Pen 遥控这些没用的也清了
 
 ## 下载
 
-apk 在 [Releases](https://github.com/gxrChina/linghu-novel-patch/releases/tag/v9.1) 里,
+apk 在 [Releases](https://github.com/gxrChina/linghu-novel-patch/releases/tag/v9.3) 里,
 下载后直接覆盖安装(数据保留)。想自己动手打的看下面的构建部分。
 
 补丁的来源说明:改的是别人商业包的脱壳产物,自用没问题,别拿去二次分发。
@@ -44,4 +48,4 @@ apk 在 [Releases](https://github.com/gxrChina/linghu-novel-patch/releases/tag/v
 
 ---
 
-English: personal patches for 灵狐小说, a rebranded legado build. De-ad, dark-mode white-screen fix, rank list repaired and turned into category tabs (13 male / 6 female genres), 125MB → 62.8MB. The patched apk is attached to the [v8.7 release](https://github.com/gxrChina/linghu-novel-patch/releases/tag/v9.1) — install it right over the stock one, data stays. Patches and build script only, GPL-3.0. The Chinese part above covers everything (run it through a translator if needed).
+English: personal patches for 灵狐小说, a rebranded legado build. De-ad, dark-mode white-screen fix, rank list repaired and turned into category tabs (13 male / 6 female genres), 125MB → 62.8MB. The patched apk is attached to the [v9.3 release](https://github.com/gxrChina/linghu-novel-patch/releases/tag/v9.3) — install it right over the stock one, data stays. Patches and build script only, GPL-3.0. The Chinese part above covers everything (run it through a translator if needed).
