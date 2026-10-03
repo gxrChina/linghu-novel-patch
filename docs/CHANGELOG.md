@@ -533,3 +533,16 @@ item_rank_book_list.xml 把书名颜色写死 `#ff232323`(厂商没做夜间适�
 指南书全新安装自动上架。DEX 类计数过 verify_build 门禁(classes8
 8378+RankCacheHelp=8379),证书与历史一致。
 产物:release/linghu_nightfix_v9.3.apk(58,048,782 字节)
+
+### v9.3 补充:更新弹窗下载进度条(2026-10-04,资产原地替换)
+点「更新」不再关弹窗:正文切换成进度条 + 状态行(正在下载 X%(A.BMB / C.DMB)),
+「更新」按钮置灰防重复下载,下完自动关弹窗拉起安装器;失败时状态行提示改用
+「手动更新」。ShowDialog 的 setMessage 换成自定义视图(正文包进 ScrollView,
+新增横向 ProgressBar 与状态行,初始 GONE);新增 ProgressRunnable(按百分比
+变化节流,主线程刷 UI)与 StatusRunnable(失败文案);DownloadRunnable 把
+ByteStreamsKt.copyTo 换成手动 read 循环以便计数。versionCode 100000020,
+CURRENT_TAG 仍 v9.3。
+实测坑:MuMu 下载 58MB 只要 ~2 秒,进度条一闪而过;MuMu 自动安装同版本包会
+清应用数据,厂商隐私弹窗(首启"用户隐私与协议")反复弹出干扰截图;api.github.com
+未认证配额 60 次/小时,调试打满后更新弹窗会静默不弹(属预期降级)。功能链路
+(点击→下载→关弹窗→安装器)多次全通。
