@@ -555,3 +555,24 @@ View.OnClickListener,框架才不收。另注意 getButton 必须在 show() **�
 之前调返回 null,后续 NPE 会被 ShowDialog 的 catch 吞掉,弹窗整个不出现。
 两个坑都在模拟器上实测:断网点「更新」,弹窗停留在进度模式并显示
 「下载失败,可以用『手动更新』去 GitHub 下载」,更新按钮置灰。
+
+### v9.4:书源体检(2026-10-05)
+用户选的方向:703 个书源没有批量体检,源坏了只能碰运气。探查发现 fork 里
+整条校验链路都在(关键词对话框/校验设置弹窗/CheckSource 并发模型/
+CheckSourceService 前台服务/结果标签),厂商只删了两样东西:
+- res/menu/book_source.xml 里的「校验书源」菜单项 → 已恢复;
+- **onCompatOptionsItemSelected 里 menu_check_source 的分支** → 已补回。
+  这个坑费了功夫:BookSourceActivity 里有两个菜单处理器,onMenuItemClick
+  (Toolbar 监听器,本包里是死代码)和 onCompatOptionsItemSelected(真正
+  生效的 compat 回调)。校验分支在死代码里倒是完好的,活代码里被删了——
+  菜单点了没反应,靠 logcat 探针二分定位。
+
+用法(也写进了书架指南,guideBookV v3→v4 自动更新):
+书源管理 → 右上角菜单 → 校验书源,关键字留空直接确定(默认搜「我的」);
+先点「校验设置」把发现/详情/目录/正文去掉只留搜索、超时 30 秒——**深项
+(详情/目录/正文)在部分优+源上会把校验管线整个卡死(零网络连接假死),
+只测搜索就完全正常**,这是本次实测发现的坑。跑完失败源自动打
+「搜索失效」「网站失效」标签,搜索框输「失效」筛出坏源,全选,选择菜单
+「禁用所选」一锅端。实测 703 源约 3 分钟跑完。
+评估:报告/禁用闭环内建已够用,未打补丁。versionCode 100000021。
+产物:release/linghu_nightfix_v9.4.apk(58,048,782 字节)
