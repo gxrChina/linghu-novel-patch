@@ -592,3 +592,14 @@ CheckSourceService 前台服务/结果标签),厂商只删了两样东西:
 - versionCode 100000022,CURRENT_TAG 1.4.0,指南 v5(补不再提示用法)。
 - GitHub 版本号重划(见顶部说明),五个历史 release 原地改名+删旧 tag 引用。
 产物:release/linghu_nightfix_1.4.0.apk(58,048,782 字节)
+
+### 1.5.0 设置分组与阅读开关(2026-10-07)
+- 其它设置分组:24 项按「更新与安全 / 阅读与下载 / 书源与网络 / 缓存与杂项」
+  四组归置(pref_config_other.xml,4 个新分组标题字符串)。主界面组不动。
+- 音量键翻页提到一级:阅读菜单 → 界面面板,顶部按钮行下新增
+  「音量键翻页:开/关」chip(dialog_read_book_style.xml + 新 id
+  tv_volume_key 0x7f0a0d0e + 新类 VolumeKeyChipClick,点击翻转
+  volumeKeyPage 偏好并刷新标签;ReadStyleDialog initData 补状态回显)。
+  不用再翻"菜单→界面→更多设置"三层。
+- versionCode 100000023,CURRENT_TAG 1.5.0。
+产物:release/linghu_nightfix_1.5.0.apk(58,048,782 字节)
